@@ -98,32 +98,6 @@ ClassConfig mergeConfig(
   );
 }
 
-ConstructorElement constructorByName(ClassElement classElement, String name) {
-  final className = classElement.name;
-
-  ConstructorElement? ctor;
-  if (name.isEmpty) {
-    ctor = classElement.unnamedConstructor;
-    if (ctor == null) {
-      throw InvalidGenerationSourceError(
-        'The class `$className` has no default constructor.',
-        element: classElement,
-      );
-    }
-  } else {
-    ctor = classElement.getNamedConstructor(name);
-    if (ctor == null) {
-      throw InvalidGenerationSourceError(
-        'The class `$className` does not have a constructor with the name '
-        '`$name`.',
-        element: classElement,
-      );
-    }
-  }
-
-  return ctor;
-}
-
 /// If [targetType] is an enum, returns the [FieldElement] instances associated
 /// with its values.
 ///
@@ -134,14 +108,6 @@ Iterable<FieldElement>? iterateEnumFields(DartType targetType) {
   }
   return null;
 }
-
-extension DartTypeExtension on DartType {
-  DartType promoteNonNullable() =>
-      element?.library?.typeSystem.promoteToNonNull(this) ?? this;
-}
-
-String ifNullOrElse(String test, String ifNull, String ifNotNull) =>
-    '$test == null ? $ifNull : $ifNotNull';
 
 String encodedFieldName(
   FieldRename fieldRename,
@@ -157,27 +123,4 @@ String encodedFieldName(
     case FieldRename.pascal:
       return declaredName.pascal;
   }
-}
-
-/// Return the Dart code presentation for the given [type].
-///
-/// This function is intentionally limited, and does not support all possible
-/// types and locations of these files in code. Specifically, it supports
-/// only [InterfaceType]s, with optional type arguments that are also should
-/// be [InterfaceType]s.
-String typeToCode(
-  DartType type, {
-  bool forceNullable = false,
-}) {
-  if (type.isDynamic) {
-    return 'dynamic';
-  } else if (type is InterfaceType) {
-    return [
-      type.element.name,
-      if (type.typeArguments.isNotEmpty)
-        '<${type.typeArguments.map(typeToCode).join(', ')}>',
-      (type.isNullableType || forceNullable) ? '?' : '',
-    ].join();
-  }
-  throw UnimplementedError('(${type.runtimeType}) $type');
 }
