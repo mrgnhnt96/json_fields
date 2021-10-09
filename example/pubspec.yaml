@@ -1,20 +1,16 @@
 name: json_fields_example
-version: 0.0.1
-publish_to: none
+description: An example of how to use json_fields
 
 environment:
   sdk: ">=2.14.0 <3.0.0"
 
 dependencies:
-  json_serializable: ^5.0.2
   json_annotation: ^4.1.0
 
 dev_dependencies:
+  json_serializable: ^5.0.2
   build_runner: ^2.1.4
   json_fields:
     path: ../
-
-import_sorter:
-  comments: false
 
 scripts: ../derry.yaml
