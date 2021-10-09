@@ -18,12 +18,8 @@ class JsonFieldsGenerator extends GeneratorForAnnotation<JsonSerializable> {
   JsonFieldsGenerator.fromSettings(this._settings);
 
   /// Creates an instance of [JsonFieldsGenerator].
-  factory JsonFieldsGenerator({
-    JsonSerializable? config,
-  }) =>
-      JsonFieldsGenerator.fromSettings(Settings(
-        config: config,
-      ));
+  factory JsonFieldsGenerator({JsonSerializable? config}) =>
+      JsonFieldsGenerator.fromSettings(Settings(config: config));
 
   @override
   Iterable<String> generateForAnnotatedElement(
