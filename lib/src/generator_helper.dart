@@ -1,4 +1,4 @@
-// Copyright (c) 2020, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2021, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
@@ -13,8 +13,6 @@ import 'settings.dart';
 import 'utils.dart';
 
 class GeneratorHelper extends HelperCore with PropertiesHelper {
-  final _addedMembers = <String>{};
-
   GeneratorHelper(
     Settings generator,
     ClassElement element,
@@ -27,14 +25,7 @@ class GeneratorHelper extends HelperCore with PropertiesHelper {
               classElement: element,
             ));
 
-  @override
-  void addMember(String memberContent) {
-    _addedMembers.add(memberContent);
-  }
-
   Iterable<String> generate() sync* {
-    assert(_addedMembers.isEmpty);
-
     final sortedFields = createSortedFieldSet(element);
 
     // Used to keep track of why a field is ignored. Useful for providing
@@ -67,7 +58,5 @@ class GeneratorHelper extends HelperCore with PropertiesHelper {
     final accessibleFieldSet = accessibleFields.values.toSet();
 
     yield* createFields(accessibleFieldSet);
-
-    yield* _addedMembers;
   }
 }
