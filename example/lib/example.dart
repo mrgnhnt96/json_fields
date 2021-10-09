@@ -1,4 +1,4 @@
-// Copyright (c) 2017, the Dart project authors. Please see the AUTHORS file
+// Copyright (c) 2021, the Dart project authors. Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
@@ -13,10 +13,13 @@ class Person {
 
   /// The generated code below handles if the corresponding JSON value doesn't
   /// exist or is empty.
-  @JsonKey(name: 'date-of-birth')
   final DateTime? dateOfBirth;
 
-  Person({required this.firstName, required this.lastName, this.dateOfBirth});
+  Person({
+    required this.firstName,
+    required this.lastName,
+    this.dateOfBirth,
+  });
 
   /// Connect the generated [_$PersonFromJson] function to the `fromJson`
   /// factory.
@@ -25,5 +28,6 @@ class Person {
   /// Connect the generated [_$PersonToJson] function to the `toJson` method.
   Map<String, dynamic> toJson() => _$PersonToJson(this);
 
+  /// Connect the generated [_$PersonFields] class to the fields getter.
   static _$PersonFields get fields => _$PersonFields();
 }

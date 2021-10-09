@@ -10,7 +10,7 @@ class _$PersonFields {
   const _$PersonFields();
   final String firstName = 'firstName';
   final String lastName = 'lastName';
-  final String dateOfBirth = 'date-of-birth';
+  final String dateOfBirth = 'dateOfBirth';
 }
 
 // **************************************************************************
@@ -20,13 +20,13 @@ class _$PersonFields {
 Person _$PersonFromJson(Map<String, dynamic> json) => Person(
       firstName: json['firstName'] as String,
       lastName: json['lastName'] as String,
-      dateOfBirth: json['date-of-birth'] == null
+      dateOfBirth: json['dateOfBirth'] == null
           ? null
-          : DateTime.parse(json['date-of-birth'] as String),
+          : DateTime.parse(json['dateOfBirth'] as String),
     );
 
 Map<String, dynamic> _$PersonToJson(Person instance) => <String, dynamic>{
       'firstName': instance.firstName,
       'lastName': instance.lastName,
-      'date-of-birth': instance.dateOfBirth?.toIso8601String(),
+      'dateOfBirth': instance.dateOfBirth?.toIso8601String(),
     };
